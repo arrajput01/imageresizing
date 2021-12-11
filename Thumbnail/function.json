@@ -1,0 +1,18 @@
+{
+  "disabled": false,
+  "bindings": [
+    {
+      "type": "eventGridTrigger",
+      "name": "eventGridEvent",
+      "direction": "in"
+    },
+    {
+      "type": "blob",
+      "name": "inputBlob",
+      "path": "{data.url}",
+      "connection": "BlA56OiKGLEXk/baM2h4TZ/ucj7IN/bcCBscNGLvc4wV8cm7Mba77K391876LyCnCcuxZQ5WeAufmqzn+bpP2w==",
+      "direction": "in",
+      "datatype": "binary"
+    }
+  ]
+}
