@@ -18,7 +18,7 @@ const uploadOptions = { bufferSize: 4 * ONE_MEGABYTE, maxBuffers: 20 };
 
 const containerName = "bringfresh";
 const accountName = "bringstorage";
-const accessKey = "BlA56OiKGLEXk/baM2h4TZ/ucj7IN/bcCBscNGLvc4wV8cm7Mba77K391876LyCnCcuxZQ5WeAufmqzn+bpP2w==";
+const accessKey = "DefaultEndpointsProtocol=https;AccountName=bringstorage;AccountKey=BlA56OiKGLEXk/baM2h4TZ/ucj7IN/bcCBscNGLvc4wV8cm7Mba77K391876LyCnCcuxZQ5WeAufmqzn+bpP2w==;EndpointSuffix=core.windows.net";
 
 const sharedKeyCredential = new SharedKeyCredential(
   accountName,
@@ -33,7 +33,7 @@ module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
   context.log('image resizing started')
 
   const aborter = Aborter.timeout(30 * ONE_MINUTE);
-  const widthInPixels = 100;
+  const widthInPixels = 200;
   const contentType = context.bindingData.data.contentType;
   const blobUrl = context.bindingData.data.url;
   const blobName = blobUrl.slice(blobUrl.lastIndexOf("/")+1);
@@ -48,7 +48,7 @@ module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
   readStream.end(thumbnailBuffer);
 
   const containerURL = ContainerURL.fromServiceURL(serviceURL, containerName);
-  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, blobName);
+  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, `${blobName}-md`);
   try {
     context.log('starting image upload')
     await uploadStreamToBlockBlob(aborter, readStream,
