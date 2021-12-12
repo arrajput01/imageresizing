@@ -18,7 +18,7 @@ const uploadOptions = { bufferSize: 4 * ONE_MEGABYTE, maxBuffers: 20 };
 
 const containerName = "bringfresh";
 const accountName = "bringstorage";
-const accessKey = "DefaultEndpointsProtocol=https;AccountName=bringstorage;AccountKey=BlA56OiKGLEXk/baM2h4TZ/ucj7IN/bcCBscNGLvc4wV8cm7Mba77K391876LyCnCcuxZQ5WeAufmqzn+bpP2w==;EndpointSuffix=core.windows.net";
+const accessKey = "BlA56OiKGLEXk/baM2h4TZ/ucj7IN/bcCBscNGLvc4wV8cm7Mba77K391876LyCnCcuxZQ5WeAufmqzn+bpP2w==";
 
 const sharedKeyCredential = new SharedKeyCredential(
   accountName,
