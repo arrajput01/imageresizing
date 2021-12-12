@@ -30,12 +30,16 @@ const serviceURL = new ServiceURL(
 );
 
 module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
+  context.log('image resizing started')
 
   const aborter = Aborter.timeout(30 * ONE_MINUTE);
   const widthInPixels = 100;
   const contentType = context.bindingData.data.contentType;
   const blobUrl = context.bindingData.data.url;
   const blobName = blobUrl.slice(blobUrl.lastIndexOf("/")+1);
+
+
+  context.log('reading blob and resizing')
 
   const image = await Jimp.read(inputBlob);
   const thumbnail = image.resize(widthInPixels, Jimp.AUTO);
@@ -46,11 +50,11 @@ module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
   const containerURL = ContainerURL.fromServiceURL(serviceURL, containerName);
   const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, blobName);
   try {
-
+    context.log('starting image upload')
     await uploadStreamToBlockBlob(aborter, readStream,
       blockBlobURL, uploadOptions.bufferSize, uploadOptions.maxBuffers,
       { blobHTTPHeaders: { blobContentType: "image/*" } });
-
+    context.log('upload done')
   } catch (err) {
 
     context.log(err.message);
