@@ -9,7 +9,7 @@
     {
       "type": "blob",
       "name": "inputBlob",
-      "path": "{data.url}",
+      "path": "bringfresh/media/products/{data.url}",
       "connection": "APP_SETTINGS_AZURE_STORAGE_CONN_STR",
       "direction": "in",
       "datatype": "binary"
