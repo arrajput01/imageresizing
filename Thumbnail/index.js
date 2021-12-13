@@ -38,7 +38,7 @@ module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
   const widthInPixels = 150;
   const contentType = context.bindingData.data.contentType;
   const blobUrl = context.bindingData.data.url;
-  const blobName = blobUrl.slice(blobUrl.lastIndexOf("/")+1);
+  const blobName = blobUrl.slice(blobUrl.lastIndexOf("bringfresh/media/products/")+1);
 
   if(blobName.split('-md').length > 1)
   {
