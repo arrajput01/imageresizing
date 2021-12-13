@@ -29,11 +29,13 @@ const serviceURL = new ServiceURL(
   pipeline
 );
 
+const generateResizedBlobName = (blobName) => blobName.split('.').join('-md.')
+
 module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
   context.log('image resizing started')
 
   const aborter = Aborter.timeout(30 * ONE_MINUTE);
-  const widthInPixels = 200;
+  const widthInPixels = 100;
   const contentType = context.bindingData.data.contentType;
   const blobUrl = context.bindingData.data.url;
   const blobName = blobUrl.slice(blobUrl.lastIndexOf("/")+1);
@@ -53,7 +55,7 @@ module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
   readStream.end(thumbnailBuffer);
 
   const containerURL = ContainerURL.fromServiceURL(serviceURL, containerName);
-  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, `${blobName}-md`);
+  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, generateResizedBlobName(blobName));
   try {
     context.log('starting image upload')
     await uploadStreamToBlockBlob(aborter, readStream,
