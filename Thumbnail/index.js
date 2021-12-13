@@ -34,10 +34,11 @@ const generateResizedBlobName = (blobName) => blobName.split('.').join('-md.')
 module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
   context.log('image resizing started')
 
+  const productURL = '/media/products'
   const aborter = Aborter.timeout(30 * ONE_MINUTE);
-  const widthInPixels = 200;
+  const widthInPixels = 150;
   const contentType = context.bindingData.data.contentType;
-  const blobUrl = context.bindingData.data.url;
+  const blobUrl = context+productURL.bindingData.data.url;
   console.log(blobUrl)
  const blobName = blobUrl.slice(blobUrl.lastIndexOf("/")+1);
 
