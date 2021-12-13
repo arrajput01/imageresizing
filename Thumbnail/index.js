@@ -60,7 +60,7 @@ module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
     context.log('starting image upload')
     await uploadStreamToBlockBlob(aborter, readStream,
       blockBlobURL, uploadOptions.bufferSize, uploadOptions.maxBuffers,
-      { blobHTTPHeaders: { blobContentType: "image/*" } });
+      { blobHTTPHeaders: { blobContentType: contentType  } });
     context.log('upload done')
   } catch (err) {
 
