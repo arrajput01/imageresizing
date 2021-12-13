@@ -41,9 +41,18 @@ module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
   const blobUrl = context.bindingData.data.url;
   console.log(blobUrl)
  const blobName = blobUrl.slice(blobUrl.lastIndexOf("/")+1);
+  let newBlobPath = ''
+  if(blobUrl.match('categories')) {
+     newBlobPath += 'categories'
+  }else if(blobUrl.match('products')) {
+      newBlobPath += 'products'
+  }
+  if(!newBlobPath) {
+      return context.done()
+  }
 
-  if(blobName.split('-md').length > 1)
-  {
+
+  if(blobName.split('-md').length > 1) {
     return context.log('starting image upload')
   }
 
@@ -57,7 +66,7 @@ module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
   readStream.end(thumbnailBuffer);
 
   const containerURL = ContainerURL.fromServiceURL(serviceURL, containerName);
-  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, generateResizedBlobName(blobName));
+  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, generateResizedBlobName(`media/${newBlobPath}/${blobName}`));
   try {
     context.log('starting image upload')
     await uploadStreamToBlockBlob(aborter, readStream,
