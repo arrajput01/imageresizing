@@ -38,7 +38,7 @@ module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
   const blobUrl = context.bindingData.data.url;
   const blobName = blobUrl.slice(blobUrl.lastIndexOf("/")+1);
 
-  if(blobName.split('-md'))
+  if(blobName.split('-md').length > 1)
   {
     return context.log('starting image upload')
   }
