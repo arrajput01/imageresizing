@@ -37,8 +37,8 @@ module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
   const productURL = '/media/products/'
   const aborter = Aborter.timeout(30 * ONE_MINUTE);
   const widthInPixels = 150;
-  const contentType = context.bindingData.data.contentType;
-  const blobUrl = context+productURL.bindingData.data.url;
+  const contentType = context+productURL.bindingData.data.contentType;
+  const blobUrl = context.bindingData.data.url;
   console.log(blobUrl)
  const blobName = blobUrl.slice(blobUrl.lastIndexOf("/")+1);
 
