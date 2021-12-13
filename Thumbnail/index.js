@@ -48,7 +48,7 @@ module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
   context.log(`reading blob and resizing ${blobUrl}, ${blobName}, ${contentType}`)
 
   const image = await Jimp.read(inputBlob);
-  const thumbnail = image.resize(widthInPixels, Jimp.AUTO);
+  const thumbnail = image.resize(widthInPixels, Jimp.AUTO).quality(80);
   context.log(thumbnail)
   const thumbnailBuffer = await thumbnail.getBufferAsync(Jimp.AUTO);
   const readStream = stream.PassThrough();
