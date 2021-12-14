@@ -13,7 +13,7 @@ const {
 } = require("@azure/storage-blob");
 
 const ONE_MEGABYTE = 1024 * 1024;
-const ONE_MINUTE = 60 * 1000;
+const ONE_MINUTE = 75 * 1000;
 const uploadOptions = { bufferSize: 4 * ONE_MEGABYTE, maxBuffers: 20 };
 
 const containerName = "bringfresh";
