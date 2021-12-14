@@ -36,7 +36,7 @@ module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
 
   // const productURL = `${context}/media/products/`
   const aborter = Aborter.timeout(30 * ONE_MINUTE);
-  const widthInPixels = 200;
+  const widthInPixels = 150;
   const contentType = context.bindingData.data.contentType;
   const blobUrl = context.bindingData.data.url;
   console.log(blobUrl)
@@ -59,7 +59,7 @@ module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
   context.log(`reading blob and resizing ${blobUrl}, ${blobName}, ${contentType}`)
 
   const image = await Jimp.read(inputBlob);
-  const thumbnail = image.resize(widthInPixels, Jimp.AUTO).quality(80);
+  const thumbnail = image.resize(widthInPixels, Jimp.AUTO).quality(100);
   context.log(thumbnail)
   const thumbnailBuffer = await thumbnail.getBufferAsync(Jimp.AUTO);
   const readStream = stream.PassThrough();
