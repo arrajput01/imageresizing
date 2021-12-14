@@ -13,7 +13,7 @@ const {
 } = require("@azure/storage-blob");
 
 const ONE_MEGABYTE = 1024 * 1024;
-const ONE_MINUTE = 75 * 1000;
+const ONE_MINUTE = 100 * 1000;
 const uploadOptions = { bufferSize: 4 * ONE_MEGABYTE, maxBuffers: 20 };
 
 const containerName = "bringfresh";
@@ -36,7 +36,7 @@ module.exports.image_resize =async (context, eventGridEvent, inputBlob) => {
 
   // const productURL = `${context}/media/products/`
   const aborter = Aborter.timeout(30 * ONE_MINUTE);
-  const widthInPixels = 100;
+  const widthInPixels = 150;
   const contentType = context.bindingData.data.contentType;
   const blobUrl = context.bindingData.data.url;
   console.log(blobUrl)
